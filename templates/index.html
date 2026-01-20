@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Maintenance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="brand">
+                <h1>PRED<span class="highlight">AI</span></h1>
+                <p>PREDICTIVE CORE</p>
+            </div>
+            
+            <div class="status-panel">
+                <div class="status-item">
+                    <span class="label">SYSTEM</span>
+                    <span class="value online">ONLINE</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">MODEL</span>
+                    <span class="value">V.1.0</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">CONNECTION</span>
+                    <span class="value">SECURE</span>
+                </div>
+            </div>
+
+            <div id="result-display" class="result-box hidden">
+                <h2 id="statusText">ANALYZING...</h2>
+                <div class="probability-wrapper">
+                    <p>FAILURE PROBABILITY</p>
+                    <div class="prob-number" id="probText">0.00</div>
+                    <span class="unit">%</span>
+                </div>
+                <p id="recommendation" class="rec-text">Waiting for data stream...</p>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header>
+                <h2>// SENSOR DATA INPUT STREAM</h2>
+                <div class="time-badge">LIVE MONITOR</div>
+            </header>
+
+            <form id="predictionForm">
+                <div class="grid-container">
+                    
+                    <div class="panel">
+                        <h3>01. CONFIGURATION</h3>
+                        <div class="input-group">
+                            <label>Product Quality Variant</label>
+                            <select id="type" required>
+                                <option value="L">Low Grade (L)</option>
+                                <option value="M">Medium Grade (M)</option>
+                                <option value="H">High Grade (H)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h3>02. THERMAL METRICS</h3>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Air Temp [K]</label>
+                                <input type="number" id="air_temp" step="0.1" value="300.0" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Process Temp [K]</label>
+                                <input type="number" id="process_temp" step="0.1" value="310.0" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h3>03. KINEMATICS</h3>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Rotational Speed [RPM]</label>
+                                <input type="number" id="rot_speed" value="1500" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Torque [Nm]</label>
+                                <input type="number" id="torque" step="0.1" value="40.0" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel warning-border">
+                        <h3>04. TOOL HEALTH</h3>
+                        <div class="input-group">
+                            <label>Tool Wear [min]</label>
+                            <input type="number" id="tool_wear" value="0" required>
+                            <small>Cumulative usage time</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-area">
+                    <button type="submit" id="predictBtn">
+                        RUN DIAGNOSTICS <span class="arrow">→</span>
+                    </button>
+                    <div id="loading" class="loader hidden"></div>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
