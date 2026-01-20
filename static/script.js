@@ -51,7 +51,7 @@ document.getElementById('predictionForm').addEventListener('submit', async funct
         // Dynamic Styling based on result
         resultBox.classList.remove('safe', 'danger'); // Reset classes
 
-        if (result.probability > 0.5) {
+        if (result.probability > 0.4) {
             statusText.innerText = "CRITICAL ALERT";
             statusText.style.color = "var(--danger)";
             recText.innerText = "High risk of component failure. Immediate maintenance required.";

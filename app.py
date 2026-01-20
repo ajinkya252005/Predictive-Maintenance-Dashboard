@@ -31,6 +31,7 @@ def predict():
         rot_speed = float(data['rot_speed'])
         torque = float(data['torque'])
         tool_wear = float(data['tool_wear'])
+        power_wear = torque * tool_wear
 
         # Preprocessing Step A: Convert "L/M/H" to number (0/1/2)
         # We wrap it in [ ] because transform expects a list
@@ -38,7 +39,7 @@ def predict():
 
         # Preprocessing Step B: Scale the data
         # Create an array of all 6 inputs
-        input_array = np.array([[type_encoded, air_temp, process_temp, rot_speed, torque, tool_wear]])
+        input_array = np.array([[type_encoded, air_temp, process_temp, rot_speed, torque, tool_wear,power_wear]])
         input_scaled = scaler.transform(input_array)
 
         # Preprocessing Step C: Predict
@@ -48,7 +49,7 @@ def predict():
         # We explicitly convert float32 to standard float for JSON compatibility
         return jsonify({
             'probability': float(prediction_prob),
-            'status': 'Danger' if prediction_prob > 0.5 else 'Safe'
+            'status': 'Danger' if prediction_prob > 0.4 else 'Safe'
         })
 
     except Exception as e:
